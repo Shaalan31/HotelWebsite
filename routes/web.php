@@ -22,3 +22,6 @@ Route::get('/home', 'HomeController@index')->name('home');
 // Routes to reviews page
 Route::get('/reviews', 'ReviewsController@getReviews');
 Route::post('/reviews', 'ReviewsController@addReview');
+
+// Routes to rooms page
+Route::get('/rooms', 'RoomsController@getRooms');

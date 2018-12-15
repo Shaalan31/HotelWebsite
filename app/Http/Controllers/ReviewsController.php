@@ -23,6 +23,9 @@ class ReviewsController extends Controller
      */
     public function addReview(Request $request)
     {
+        if(auth()->user()->id == null)  //if logout
+            return redirect('/login');
+
         $userReview = $request->userReview;
         $userRating = $request->userRating;
 

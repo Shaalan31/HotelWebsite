@@ -40,95 +40,99 @@
                     <h1 class="display-3">Reviews</h1>
                 </span>
                 @auth
-                    <span style="padding: 5%" class="col-md-4"> <a class="btn btn-primary btn-lg" href="#addReview" role="button">Add a Review &raquo;</a> </span>
+                    @if( Auth::user()->blocked == false)
+                        <span style="padding: 5%" class="col-md-4"> <a class="btn btn-primary btn-lg" href="#addReview" role="button">Add a Review &raquo;</a> </span>
+                    @endif
                 @endauth
             </div>
         </div>
     </div>
 
     @foreach($allReviews as $review)
-    <div class="container">
-        <div class="row review">
-            <div class="col-md-6">
-                <p style="font-size: large;font-weight: bold"><span> {{$review->name}} </span>
-                    @if($review->rating == 1)
-                        <span class="fa fa-star checked "></span>
-                        <span class="fa fa-star "></span>
-                        <span class="fa fa-star "></span>
-                        <span class="fa fa-star"></span>
-                        <span class="fa fa-star"></span>
-                    @elseif($review->rating == 2)
-                        <span class="fa fa-star checked "></span>
-                        <span class="fa fa-star checked "></span>
-                        <span class="fa fa-star "></span>
-                        <span class="fa fa-star"></span>
-                        <span class="fa fa-star"></span>
-                    @elseif($review->rating == 3)
-                        <span class="fa fa-star checked "></span>
-                        <span class="fa fa-star checked "></span>
-                        <span class="fa fa-star checked"></span>
-                        <span class="fa fa-star"></span>
-                        <span class="fa fa-star"></span>
-                    @elseif($review->rating == 4)
-                        <span class="fa fa-star checked "></span>
-                        <span class="fa fa-star checked "></span>
-                        <span class="fa fa-star checked"></span>
-                        <span class="fa fa-star checked"></span>
-                        <span class="fa fa-star"></span>
-                    @else
-                        <span class="fa fa-star checked "></span>
-                        <span class="fa fa-star checked "></span>
-                        <span class="fa fa-star checked"></span>
-                        <span class="fa fa-star checked"></span>
-                        <span class="fa fa-star checked"></span>
-                    @endif
-
-                </p>
-                <p>{{$review->review}} </p>
-                </br> </br> </br>
-            </div>
-        </div>
-    </div>
-            @endforeach
-
-    @auth
-        <hr>
         <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <form method="POST" action="/reviews" >
-                        {{ csrf_field() }}
-                        <div>
-                           <a name="addReview"> <h4 style="margin-left: 1%"> Write a Review</h4> </a>
-                        </div>
-                        <div class="{{ $errors->has('userReview') ? ' has-error' : '' }}">
-                            <textarea name="userReview" class=""  placeholder="Your Review" style="min-height: 140px; width: 50%;margin-left: 1%"></textarea>
-                            <br>
-                            @if ($errors->has('userReview'))
-                                <span class="help-block">
-                                    <strong>{{ $errors->first('userReview') }}</strong>
-                                </span>
-                            @endif
-                        </div>
+            <div class="row review">
+                <div class="col-md-6">
+                    <p style="font-size: large;font-weight: bold"><span> {{$review->name}} </span>
+                        @if($review->rating == 1)
+                            <span class="fa fa-star checked "></span>
+                            <span class="fa fa-star "></span>
+                            <span class="fa fa-star "></span>
+                            <span class="fa fa-star"></span>
+                            <span class="fa fa-star"></span>
+                        @elseif($review->rating == 2)
+                            <span class="fa fa-star checked "></span>
+                            <span class="fa fa-star checked "></span>
+                            <span class="fa fa-star "></span>
+                            <span class="fa fa-star"></span>
+                            <span class="fa fa-star"></span>
+                        @elseif($review->rating == 3)
+                            <span class="fa fa-star checked "></span>
+                            <span class="fa fa-star checked "></span>
+                            <span class="fa fa-star checked"></span>
+                            <span class="fa fa-star"></span>
+                            <span class="fa fa-star"></span>
+                        @elseif($review->rating == 4)
+                            <span class="fa fa-star checked "></span>
+                            <span class="fa fa-star checked "></span>
+                            <span class="fa fa-star checked"></span>
+                            <span class="fa fa-star checked"></span>
+                            <span class="fa fa-star"></span>
+                        @else
+                            <span class="fa fa-star checked "></span>
+                            <span class="fa fa-star checked "></span>
+                            <span class="fa fa-star checked"></span>
+                            <span class="fa fa-star checked"></span>
+                            <span class="fa fa-star checked"></span>
+                        @endif
 
-                        <div>
-                            <h4 style="margin-left: 1%">Give Your Rating Please</h4>
-                        </div>
-
-                        <div class="radio" style="margin-left: 1%">
-                            <label><input type="radio" style="height:20px; width:20px;" name="userRating" value="1"> <p style="font-size: medium">1 </p></label>
-                            <label><input type="radio" style="height:20px; width:20px;" name="userRating" value="2"> <p style="font-size: medium"> 2 </p></label>
-                            <label><input type="radio" style="height:20px; width:20px;" name="userRating" value="3" checked> <p style="font-size: medium"> 3 </p> </label>
-                            <label><input type="radio" style="height:20px; width:20px;" name="userRating" value="4"><p style="font-size: medium"> 4 </p></label>
-                            <label><input type="radio" style="height:20px; width:20px;" name="userRating" value="5"><p style="font-size: medium"> 5 (highest) </p></label>
-                        </div>
-
-
-                        <button type="submit" class="btn btn-primary btn-lg" style="margin-left: 1%">Submit</button>
-                    </form>
+                    </p>
+                    <p>{{$review->review}} </p>
+                    </br> </br> </br>
                 </div>
             </div>
         </div>
+    @endforeach
+
+    @auth
+        @if( Auth::user()->blocked == false)
+            <hr>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <form method="POST" action="/reviews" >
+                            {{ csrf_field() }}
+                            <div>
+                               <a name="addReview"> <h4 style="margin-left: 1%"> Write a Review</h4> </a>
+                            </div>
+                            <div class="{{ $errors->has('userReview') ? ' has-error' : '' }}">
+                                <textarea name="userReview" class=""  placeholder="Your Review" style="min-height: 140px; width: 50%;margin-left: 1%"></textarea>
+                                <br>
+                                @if ($errors->has('userReview'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('userReview') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+
+                            <div>
+                                <h4 style="margin-left: 1%">Give Your Rating Please</h4>
+                            </div>
+
+                            <div class="radio" style="margin-left: 1%">
+                                <label><input type="radio" style="height:20px; width:20px;" name="userRating" value="1"> <p style="font-size: medium">1 </p></label>
+                                <label><input type="radio" style="height:20px; width:20px;" name="userRating" value="2"> <p style="font-size: medium"> 2 </p></label>
+                                <label><input type="radio" style="height:20px; width:20px;" name="userRating" value="3" checked> <p style="font-size: medium"> 3 </p> </label>
+                                <label><input type="radio" style="height:20px; width:20px;" name="userRating" value="4"><p style="font-size: medium"> 4 </p></label>
+                                <label><input type="radio" style="height:20px; width:20px;" name="userRating" value="5"><p style="font-size: medium"> 5 (highest) </p></label>
+                            </div>
+
+
+                            <button type="submit" class="btn btn-primary btn-lg" style="margin-left: 1%">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        @endif
     @endauth
 
     <!-- Footer -->
