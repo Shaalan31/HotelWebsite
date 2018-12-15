@@ -63,7 +63,7 @@
                             <span class="badge badge-pill badge-success d-inline">Price &nbsp;
                                 <i class="fa fa-dollar"></i>
                             </span>
-                            <p class="lead d-inline"> &nbsp; {{ $room->price }}$</p>
+                            <p class="lead d-inline"> &nbsp; {{ $room->price }}$ per night</p>
                         </div>
                     </div>
             </div>
