@@ -18,5 +18,7 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+// Routes to reviews page
 Route::get('/reviews', 'ReviewsController@getReviews');
 Route::post('/reviews', 'ReviewsController@addReview');

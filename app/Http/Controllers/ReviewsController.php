@@ -1,9 +1,8 @@
 <?php
 namespace App\Http\Controllers;
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use  crocodicstudio\crudbooster\helpers\CRUDBooster;
+use Illuminate\Support\Facades\Validator;
 
 class ReviewsController extends Controller
 {
@@ -14,35 +13,35 @@ class ReviewsController extends Controller
     public function getReviews()
     {
         $allReviews = DB::table('reviews')->get();
-        return \View::make('Reviews', compact('allReviews'));
+        return \View::make('reviews', compact('allReviews'));
     }
 
     /**
      * Add Review
      * @param Request $request
+     * @return redirect to view reviews
      */
     public function addReview(Request $request)
     {
         $userReview = $request->userReview;
         $userRating = $request->userRating;
-        DB::table('reviews')->insert(
-            [ ['name' => @auth()->user()->name, 'Review' => $userReview, 'Rating' => $userRating ]]
-        );
-    }
 
-
-    /**
-     * Get a validator for an incoming registration request.
-     *
-     * @param  array  $data
-     * @return \Illuminate\Contracts\Validation\Validator
-     */
-    protected function validator(array $data)
-    {
-        return Validator::make($data, [
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:6|confirmed',
+        // Validate the request
+        $data['userReview'] = $userReview;
+        $data['userRating'] = $userRating;
+        $v = Validator::make($data , [
+            'userReview' => 'required|string|max:255',
+            'userRating' => 'required|numeric',
         ]);
+
+        if($v->fails()){
+            return redirect()->back()->withErrors($v->errors());
+        }
+
+        // Insert in the database
+        DB::table('reviews')->insert(
+            [ ['name' => @auth()->user()->name, 'review' => $userReview, 'rating' => $userRating ]]
+        );
+        return redirect('/reviews');
     }
 }

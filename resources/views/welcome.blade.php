@@ -79,8 +79,13 @@
             </div>
         </main>
 
+        <hr>
+        <footer class="container">
+            <p>&copy; Mariott Hotel 2018-2019</p>
+        </footer>
+
         <!-- Scripts -->
         <script src="{{ asset('js/jquery-3.3.1.min.js') }}"></script>
-        <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+        {{--<script src="{{ asset('js/bootstrap.min.js') }}"></script>--}}
     </body>
 </html>
