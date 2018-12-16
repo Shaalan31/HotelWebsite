@@ -66,15 +66,26 @@
                             <p class="lead d-inline"> &nbsp; {{ $room->price }}$ per night</p>
                         </div>
                     </div>
-            </div>
+                </div>
         @endforeach
     </div>
 
+    <br>
+    @auth
+        @if(Auth::user()->blocked == false)
+            <p class="lead"><a class="btn btn-primary" href="{{ url('/book') }}" role="button" style="margin-left: 2%;">Book Now &raquo;</a></p>
+        @else
+            <span class="d-inline-block" tabindex="0" data-toggle="tooltip" style="margin-left: 2%;" title="You seem to be blocked by the admin. Contact Us as soon as possible!">
+                <button class="btn btn-danger" style="pointer-events: none;" type="button" disabled>Book Now &raquo;</button>
+            </span>
+        @endif
+    @endauth
 
     <!-- Footer -->
     <hr>
     <footer class="container">
         <p>&copy; Mariott Hotel 2018-2019</p>
     </footer>
+
 </body>
 </html>
