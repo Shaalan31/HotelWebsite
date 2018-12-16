@@ -17,7 +17,7 @@
     <body>
 
         <!-- Slider -->
-        <main role="main"  style="padding-top: 9%">
+        <main role="main"  style="padding-top: 5%">
             {{--<div class="title m-b-md">--}}
             {{--Mariott Hotel--}}
             {{--</div>--}}
@@ -79,10 +79,8 @@
             </div>
         </main>
 
-        <hr>
-        <footer class="container">
-            <p>&copy; Mariott Hotel 2018-2019</p>
-        </footer>
+        <!-- Footer -->
+        @include('layouts.footer')
 
         <!-- Scripts -->
         <script src="{{ asset('js/jquery-3.3.1.min.js') }}"></script>

@@ -15,10 +15,10 @@
     <link href="{{ asset('css/blocks.css') }}" rel="stylesheet">
 
 </head>
-<body>
-
+<body style="padding-top: 5%;">
         <div class="container">
             <div class="row">
+                <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
                 @if (Route::has('login'))
                     <nav class="navbar navbar-expand-lg  navbar-expand-md navbar-light fixed-top bg-light navig-bar">
                         <a class="navbar-brand" href="{{ url('/') }}">Marriott Hotel</a>
@@ -85,6 +85,7 @@
                         </div>
                     </nav>
                 @endif
+                </div>
             </div>
         </div>
 

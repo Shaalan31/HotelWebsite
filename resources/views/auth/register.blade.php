@@ -113,5 +113,7 @@
                 </div>
             </div>
         </div>
+        {{--<!-- Footer -->--}}
+        {{--@include('layouts.footer')--}}
     </body>
 @endsection

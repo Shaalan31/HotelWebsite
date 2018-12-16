@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Reviews</title>
+    <title>Reviews - Marriott Hotel</title>
     <!-- Bootstrap core CSS -->
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
 
@@ -22,10 +22,12 @@
         .review {
             border-radius: 10px;
             border: 1px solid silver;
-            padding: 10px;
+            /*padding: 10px;*/
             margin: 10px;
-            width: 1000px;
-            height: 110px;
+            /*width: 1000px;*/
+            /*height: 110px;*/
+            width: 100%;
+            height: 100%;
             background-color: #f0f5f5;
 
         }
@@ -35,13 +37,15 @@
 <body>
     <div class="jumbotron">
         <div class="container">
-            <div class="row" style="padding: 5%">
-                <span class="col-md-8">
+            <div class="row">
+                <div class="col-md-8">
                     <h1 class="display-3">Reviews</h1>
-                </span>
+                </div>
                 @auth
                     @if( Auth::user()->blocked == false)
-                        <span style="padding: 5%" class="col-md-4"> <a class="btn btn-primary btn-lg" href="#addReview" role="button">Add a Review &raquo;</a> </span>
+                        <div class="col-md-4">
+                            <a class="btn btn-primary btn-lg" href="#addReview" role="button">Add a Review &raquo;</a>
+                        </div>
                     @endif
                 @endauth
             </div>
@@ -51,7 +55,7 @@
     @foreach($allReviews as $review)
         <div class="container">
             <div class="row review">
-                <div class="col-md-6">
+                <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
                     <p style="font-size: large;font-weight: bold"><span> {{$review->name}} </span>
                         @if($review->rating == 1)
                             <span class="fa fa-star checked "></span>
@@ -98,7 +102,7 @@
             <hr>
             <div class="container">
                 <div class="row">
-                    <div class="col-md-12">
+                    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
                         <form method="POST" action="/reviews" >
                             {{ csrf_field() }}
                             <div>
@@ -136,10 +140,7 @@
     @endauth
 
     <!-- Footer -->
-    <hr>
-    <footer class="container">
-        <p>&copy; Mariott Hotel 2018-2019</p>
-    </footer>
+    @include('layouts.footer')
 
     {{--<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>--}}
     {{--<script src="{{ asset('js/bootstrap.min.js') }}"></script>--}}

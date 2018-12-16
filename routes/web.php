@@ -25,3 +25,6 @@ Route::post('/reviews', 'ReviewsController@addReview');
 
 // Routes to rooms page
 Route::get('/rooms', 'RoomsController@getRooms');
+
+// Routes to about us page
+Route::get('/aboutus', 'AboutUsController@getInfo');

@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Rooms</title>
+    <title>Rooms - Marriott Hotel</title>
     <!-- Bootstrap core CSS -->
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
 
@@ -16,7 +16,7 @@
 </head>
 <body>
 
-    <img src="{{ asset('imgs/rooms3.jpg') }}" class="img-fluid" alt="Responsive image">
+    <img src="{{ asset('imgs/rooms3.jpg') }}" class="img-fluid" alt="Hotel Rooms">
 
     <hr>
 
@@ -82,10 +82,7 @@
     @endauth
 
     <!-- Footer -->
-    <hr>
-    <footer class="container">
-        <p>&copy; Mariott Hotel 2018-2019</p>
-    </footer>
+    @include('layouts.footer')
 
 </body>
 </html>
