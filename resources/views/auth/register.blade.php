@@ -5,10 +5,10 @@
     <body class="background">
         <div class="container">
             <div class="row">
-                <div class="col-md-8 login">
+                <div class="col-md-8 form">
 
                     <!-- Card Login -->
-                    <div class="card border-primary mb-3" style="background-color: rgba(255, 255, 255, 0.8);">
+                    <div class="card border-primary mb-3" style="background-color: rgba(255, 255, 255, 0.82);">
                         <div class="card-header">Register</div>
                         <div class="card-body">
                             <div class="panel panel-default">

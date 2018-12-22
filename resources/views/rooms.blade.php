@@ -57,8 +57,8 @@
                             {{ $room->description }}
                 @endif
                             <p class="lead">Room Size: {{ $room->size }} Sq. M</p>
-                            <p class="lead">Number of Guests: {{ $room->noOfGuests }}</p>
-                            <p class="lead">Number of Beds: {{ $room->noOfBeds }}</p>
+                            <p class="lead">Number of Guests: {{ $room->no_of_guests }}</p>
+                            <p class="lead">Number of Beds: {{ $room->no_of_beds }}</p>
                             <div clas="d-inline"></div>
                             <span class="badge badge-pill badge-success d-inline">Price &nbsp;
                                 <i class="fa fa-dollar"></i>

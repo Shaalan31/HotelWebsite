@@ -28,3 +28,7 @@ Route::get('/rooms', 'RoomsController@getRooms');
 
 // Routes to about us page
 Route::get('/aboutus', 'AboutUsController@getInfo');
+
+// Routes to Book Now page
+Route::get('/book', 'BookController@getBooking');
+Route::post('/book', 'BookController@book');

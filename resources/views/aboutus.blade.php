@@ -166,7 +166,7 @@
                         <div class="container">
                             <div class="row">
                                 <div class="col-md-12 col-lg-12 col-xs-12 col-sm-12">
-                                    <h2>JW Marriott Hotel Hong Kong , China</h2>
+                                    <h2>JW Marriott Hotel Hong Kong, China</h2>
                                 </div>
                             </div>
                             <div class="row">
@@ -202,7 +202,7 @@
                         <div class="container">
                             <div class="row">
                                 <div class="col-md-12 col-lg-12 col-xs-12 col-sm-12">
-                                    <h2>JW Marriott Hotel Cairo , Egypt</h2>
+                                    <h2>JW Marriott Hotel Cairo, Egypt</h2>
                                 </div>
                             </div>
                             <div class="row">
