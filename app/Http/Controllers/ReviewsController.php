@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use Auth;
 
 class ReviewsController extends Controller
 {
@@ -23,7 +24,7 @@ class ReviewsController extends Controller
      */
     public function addReview(Request $request)
     {
-        if(auth()->user()->id == null)  //if logout
+        if(!Auth::check())  //if logout
             return redirect('/login');
 
         $userReview = $request->userReview;

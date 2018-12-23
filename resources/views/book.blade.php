@@ -42,7 +42,7 @@
                                             <input id="credit_card" type="text" placeholder="Your Credit Card number" class="form-control" name="credit_card" value="{{ old('credit_card') }}"
                                                    required
                                                    autofocus
-                                                   onkeyup="this.setCustomValidity('');">
+                                                   onkeyup="validateCC()">
 
                                             @if ($errors->has('credit_card'))
                                                 <span class="help-block">
@@ -58,7 +58,7 @@
                                         <label for="start_date" class="col-md-3 control-label">Start Date</label>
 
                                         <div class="col-md-9">
-                                            <input id="start_date" type="date" class="form-control" name="start_date" value="{{ old('start_date') }}" required autofocus min="">
+                                            <input id="start_date" type="date" class="form-control" name="start_date" value="{{ old('start_date') }}" required autofocus min="" onchange="checkStartDate();">
 
                                             @if ($errors->has('start_date'))
                                                 <span class="help-block">
@@ -70,19 +70,20 @@
 
                                     <!-- End Date -->
                                     <div class="flex-center form-group{{ $errors->has('end_date') ? ' has-error' : '' }}">
-                                        <label for="end_date" class="col-md-3 control-label">Start Date</label>
+                                        <label for="end_date" class="col-md-3 control-label">End Date</label>
 
                                         <div class="col-md-9">
                                             <input id="end_date" type="date" class="form-control" name="end_date" value="{{ old('end_date') }}" required autofocus min="">
 
                                             @if ($errors->has('end_date'))
                                                 <span class="help-block">
-                                        <strong>{{ $errors->first('end_date') }}</strong>
-                                    </span>
+                                                    <strong>{{ $errors->first('end_date') }}</strong>
+                                                </span>
                                             @endif
                                         </div>
                                     </div>
 
+                                    <!-- Script for adjusting the minimum the date of the calendar -->
                                     <script>
                                         var today = new Date().toISOString().split('T')[0];
                                         document.getElementById("start_date").setAttribute('min', today);
@@ -104,6 +105,11 @@
                                                 <option name="hotel" value="Courtyard Paris Roissy Charles De Gaulle Airport Hotel">JCourtyard Paris Roissy Charles De Gaulle Airport Hotel - France</option>
                                             </select>
                                             </div>
+                                            @if ($errors->has('hotel'))
+                                                <span class="help-block">
+                                                    <strong>{{ $errors->first('hotel') }}</strong>
+                                                </span>
+                                            @endif
                                         </div>
                                     </div>
 
@@ -118,9 +124,9 @@
                                                 <select required="required" name="room" class="custom-select" id="inputGroupSelect02">
                                                     @foreach($allRooms as $room)
                                                         @if( $room->id == 1)
-                                                            <option name="hotel" selected id="{{ $room->id }}" value="{{ $room->name }}">{{ $room->name }}</option>
+                                                            <option name="room" selected id="{{ $room->id }}" value="{{ $room->name }}">{{ $room->name }}</option>
                                                         @else
-                                                            <option name="hotel" id="{{ $room->id }}" value="{{ $room->name }}">{{ $room->name }}</option>
+                                                            <option name="room" id="{{ $room->id }}" value="{{ $room->name }}">{{ $room->name }}</option>
                                                         @endif
                                                     @endforeach
                                                 </select>
@@ -131,15 +137,18 @@
                                                     <button class="btn btn-outline-danger" type="button" onclick="decrementValue('quantity')">-</button>
                                                 </div>
                                             </div>
+                                            @if ($errors->has('room'))
+                                                <span class="help-block">
+                                                    <strong>{{ $errors->first('room') }}</strong>
+                                                </span>
+                                            @endif
                                         </div>
                                     </div>
 
                                      <!-- List of chosen rooms -->
                                     <div class="flex-center form-group">
                                         <label for="email" class="col-md-3 control-label"></label>
-                                        <div class="col-md-9">
-                                            <ul class="list-group" id="roomsList">
-                                            </ul>
+                                        <div class="col-md-9" id="roomsList">
                                         </div>
                                     </div>
 

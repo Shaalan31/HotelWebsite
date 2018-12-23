@@ -24,7 +24,6 @@ function decrementValue(id){
 function addRoom() {
     var rooms = document.getElementById('roomsList');
     var newRoomName = document.forms['book']['room'].value;
-    var newRoom = document.forms['book']['room'].id;
     var quantity = parseInt(document.getElementById('quantity').innerText, 10);
     var found = false;
 
@@ -32,20 +31,22 @@ function addRoom() {
     if(chosenRooms.length != 0){
         for(var i = 0; i < chosenRooms.length; i++){
             if(chosenRooms[i].name.toLowerCase().trim() == newRoomName.toLowerCase().trim()){
-                if(chosenRooms[i].quantity + quantity <= 10)
+                if(chosenRooms[i].quantity + quantity <= 10) {
                     chosenRooms[i].quantity += quantity;
-                document.getElementById('quantity' + i).innerText = chosenRooms[i].quantity;
+                    document.getElementById('quantity' + i).setAttribute('value', chosenRooms[i].quantity);
+                }
                 found = true;
                 break;
             }
         }
         if(!found){
             rooms.innerHTML = rooms.innerHTML +
-                '<li class="list-group-item d-flex justify-content-between align-items-center" id="room' + chosenRooms.length + '">' +
-                newRoomName +
-                '<span class="badge badge-primary badge-pill" id="quantity'+ chosenRooms.length +'">' +
-                quantity +
-                '</span></li>';
+                '<div class="input-group mb-3">' +
+                '<input type="text" name="chosenRooms[]" class="form-control" readonly="readonly" value="'+ newRoomName +'" id="room' + chosenRooms.length +'">' +
+                '<div class="input-group-append">' +
+                '<input name="quantities[]" type="number" style="text-align: center;" readonly="readonly" class="form-control" value="'+ quantity +'" id="quantity'+ chosenRooms.length +'">' +
+                '</div>' +
+                '</div>';
 
             chosenRooms.push({name: newRoomName.toLowerCase().trim(), quantity: quantity})
         }
@@ -53,32 +54,33 @@ function addRoom() {
         chosenRooms.push({name: newRoomName.toLowerCase().trim(), quantity: quantity})
 
         rooms.innerHTML = rooms.innerHTML +
-            '<li class="list-group-item d-flex justify-content-between align-items-center" id="room0">' +
-            newRoomName +
-            '<span class="badge badge-primary badge-pill" id="quantity0">' +
-            quantity +
-            '</span></li>';
+            '<div class="input-group mb-3">' +
+            '<input type="text" name="chosenRooms[]" class="form-control"  readonly="readonly" value="'+ newRoomName +'" id="chosenRooms[0]" >' +
+            '<div class="input-group-append">' +
+            '<input name="quantities[]" type="number" style="text-align: center;" readonly="readonly" class="form-control" value="'+ quantity +'" id="quantity0">' +
+            '</div>' +
+            '</div>';
     }
 }
 
 // Validate Credir Card
 function validateCC() {
-    var ccNum = document.getElementById("cardNum").value;
+    var ccNum = document.getElementById("credit_card").value;
     var visaRegEx = /^(?:4[0-9]{12}(?:[0-9]{3})?)$/;
-    var mastercardRegEx = /^(?:5[1-5][0-9]{14})$/;
-    var amexpRegEx = /^(?:3[47][0-9]{13})$/;
-    var discovRegEx = /^(?:6(?:011|5[0-9][0-9])[0-9]{12})$/;
+    // var mastercardRegEx = /^(?:5[1-5][0-9]{14})$/;
+    // var amexpRegEx = /^(?:3[47][0-9]{13})$/;
+    // var discovRegEx = /^(?:6(?:011|5[0-9][0-9])[0-9]{12})$/;
     var isValid = false;
 
     if (visaRegEx.test(ccNum)) {
         isValid = true;
-    } else if(mastercardRegEx.test(ccNum)) {
-        isValid = true;
-    } else if(amexpRegEx.test(ccNum)) {
-        isValid = true;
-    } else if(discovRegEx.test(ccNum)) {
-        isValid = true;
-    }
+    } //else if(mastercardRegEx.test(ccNum)) {
+    //     isValid = true;
+    // } else if(amexpRegEx.test(ccNum)) {
+    //     isValid = true;
+    // } else if(discovRegEx.test(ccNum)) {
+    //     isValid = true;
+    // }
 
     if(!isValid) {
         document.getElementById('credit_card').setCustomValidity("Please press enter a valid credit card number!");
@@ -88,17 +90,35 @@ function validateCC() {
         document.getElementById('credit_card').reportValidity();
     }
     return isValid;
+}
+
+// Check if the chosen start date is after the chosen end date
+function checkStartDate() {
+    var startDate = document.getElementById('start_date').value;
+    var endDate = document.getElementById('end_date').value;
+    var today = new Date().toISOString().split('T')[0];
+
+    if(startDate < today)
+        document.getElementById('start_date').value = today;
+
+    if(endDate != null && startDate > endDate)
+        document.getElementById('end_date').value = startDate;
+
+    document.getElementById("end_date").setAttribute('min', startDate);
 
 }
 
-function aubmit(){
-    // Submit the form
-    $('.bookForm').on("submit", function (event) {
-        event.preventDefault();
+// Check if the chosen start date is after the chosen end date
+function checkEndDate() {
+    var startDate = document.getElementById('start_date').value;
+    var endDate = document.getElementById('end_date').value;
+    var today = new Date().toISOString().split('T')[0];
 
-        // Validate the credit card
-        if(validateCC()){
+    if(endDate < today)
+        document.getElementById('end_date').value = today;
 
-        }
-    });
+    if(startDate != null && startDate > endDate)
+        document.getElementById('end_date').value = startDate;
+
+    document.getElementById("end_date").setAttribute('min', startDate);
 }
