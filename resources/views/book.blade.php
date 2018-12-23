@@ -73,7 +73,7 @@
                                         <label for="end_date" class="col-md-3 control-label">End Date</label>
 
                                         <div class="col-md-9">
-                                            <input id="end_date" type="date" class="form-control" name="end_date" value="{{ old('end_date') }}" required autofocus min="">
+                                            <input id="end_date" type="date" class="form-control" name="end_date" value="{{ old('end_date') }}" required autofocus min="" onchange="checkEndDate()">
 
                                             @if ($errors->has('end_date'))
                                                 <span class="help-block">
@@ -110,6 +110,8 @@
                                                     <strong>{{ $errors->first('hotel') }}</strong>
                                                 </span>
                                             @endif
+
+                                            <p class="lead"><a href="/aboutus">Explore Our Branches</a></p>
                                         </div>
                                     </div>
 
