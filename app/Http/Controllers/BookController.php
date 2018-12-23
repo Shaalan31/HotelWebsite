@@ -96,19 +96,18 @@ class BookController extends Controller
         if($hotel == null)
             return redirect()->back()->withErrors(['hotel' => 'Please choose an hotel correctly!']);
 
-        // add the credit card of the user
-        User::where('id', auth()->user()->id)
-            ->update(['credit_card_no' => $credit_card]);
-
         // Add the booking
         $booking = new Bookings();
         $booking->destination = $hotel->name;
         $booking->status_description = "Waiting for the admin to accept your booking";
         $booking->user_id = auth()->user()->id;
+        $booking->start_date = $start_date;
+        $booking->end_date = $end_date;
         $today = today();
         $booking->setCreatedAt($today);
         $booking->setUpdatedAt($today);
-        $bookingTemp = Bookings::orderBy('created_at', 'desc')->first();
+        $booking->credit_card = $credit_card;
+        $bookingTemp = Bookings::orderBy('id', 'desc')->first();
         if($bookingTemp == null)
             $bookingId = 1;
         else $bookingId = $bookingTemp->id + 1;

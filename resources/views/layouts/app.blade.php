@@ -39,7 +39,7 @@
                                 </li>
                                 @auth
                                     <li class="nav-item active">
-                                        <a class="nav-link" href="{{ url('/accommodations') }}">Accommodations' Status</a>
+                                        <a class="nav-link" href="{{ url('/accommodations') }}">Accommodations</a>
                                     </li>
                                     <li class="nav-item active">
                                         <a class="nav-link" href="{{ url('/book') }}">Book Now</a>

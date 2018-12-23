@@ -32,3 +32,6 @@ Route::get('/aboutus', 'AboutUsController@getInfo');
 // Routes to Book Now page
 Route::get('/book', 'BookController@getBooking');
 Route::post('/book', 'BookController@book');
+
+// Routes to accommodations' status
+Route::get('/accommodations', 'AccommodController@getAccomod');
