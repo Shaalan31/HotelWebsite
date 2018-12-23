@@ -34,7 +34,7 @@ class AccommodController extends Controller
                 array_push($roomsArr, array('room' => $roomTemp->name, 'quantity' => $room->no_of_rooms));
             }
 
-            if(($booking->end_date < today() && $booking->status == 1) || $booking->status == 4){
+            if(($booking->end_date < today() && $booking->status == 2) || $booking->status == 4){
                 // Update the booking status
                 Bookings::where('id', $booking->id)->update(['status' => 4]);
 
@@ -42,7 +42,7 @@ class AccommodController extends Controller
                     'status_description' => $booking->status_description, 'start_date' => $booking->start_date,
                     'end_date' => $booking->end_date, 'rooms' => $roomsArr));
             }
-            if($booking->status == 1)
+            elseif($booking->status == 1)
                 array_push($pending, array('destination' => $booking->destination, 'status' => $booking->status,
                             'status_description' => $booking->status_description, 'start_date' => $booking->start_date,
                             'end_date' => $booking->end_date, 'rooms' => $roomsArr));
