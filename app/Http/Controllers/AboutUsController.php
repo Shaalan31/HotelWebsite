@@ -1,5 +1,6 @@
 <?php
 namespace App\Http\Controllers;
+use App\Branches;
 
 class AboutUsController extends Controller
 {
@@ -9,7 +10,7 @@ class AboutUsController extends Controller
      */
     public function getInfo()
     {
-        return \View::make('aboutus');
+        $branches = Branches::all();
+        return \View::make('aboutus', compact('branches'));
     }
-
 }

@@ -109,48 +109,42 @@
             <div class="container">
                 <div class="row flex-center">
                         <p>
-                            <a class="btn btn-primary" data-toggle="collapse" href="#collapseItaly" role="button" aria-expanded="false" aria-controls="collapseItaly">
-                                Italy Branch
-                            </a>
-                            <a class="btn btn-primary" data-toggle="collapse" href="#collapseChina" role="button" aria-expanded="false" aria-controls="collapseChina">
-                                China Branch
-                            </a>
-                            <a class="btn btn-primary" data-toggle="collapse" href="#collapseEgypt" role="button" aria-expanded="false" aria-controls="collapseEgypt">
-                                Egypt Branch
-                            </a>
-                            <a class="btn btn-primary" data-toggle="collapse" href="#collapseFrance" role="button" aria-expanded="false" aria-controls="collapseFrance">
-                                France Branch
-                            </a>
+                            @foreach($branches as $branch)
+                                <a class="btn btn-primary" data-toggle="collapse" href="#collapse{{ $branch->location }}" role="button" aria-expanded="false" aria-controls="collapse{{ $branch->location }}">
+                                    {{ $branch->location }} Branch
+                                </a>
+                            @endforeach
                         </p>
                 </div>
 
-                <!-- Italy Branch -->
-                <div class="collapse" id="collapseItaly">
+                <!-- Hotel Branches -->
+                @foreach($branches as $branch)
+                <div class="collapse" id="collapse{{ $branch->location }}">
                     <div class="card card-body">
                         <div class="container">
                             <div class="row">
                                 <div class="col-md-12 col-lg-12 col-xs-12 col-sm-12">
-                                    <h2>Hotel Danieli, a Luxury Collection Hotel, Venice</h2>
+                                    <h2>{{ $branch->name }}</h2>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-6 col-lg-6 col-sm-6 col-xs-6">
-                                    <iframe src="https://maps.google.com/maps?q=45.4338677,12.3420638&hl=es;z=14&amp;output=embed" width="100%" height="100%" frameborder="0" style="border:0" allowfullscreen></iframe>
+                                    <iframe src="https://maps.google.com/maps?q={{ $branch->longitude }},{{ $branch->latitude }}&hl=es;z=14&amp;output=embed" width="100%" height="100%" frameborder="0" style="border:0" allowfullscreen></iframe>
                                 </div>
                                 <div class="col-md-6 col-lg-6 col-sm-6 col-xs-6">
-                                    <img src="{{ asset('imgs/venice.jpg') }}" class="img-fluid" alt="Venice Marriott Hotel">
+                                    <img src="{{ asset('imgs/'. $branch->location .'.jpg') }}" class="img-fluid" alt="Venice Marriott Hotel">
                                     <p class="lead">
                                         <i class="fas fa-map-marker-alt"></i>
-                                        &nbsp; Riva degli Schiavoni, Castello 4196, Venice  30122 Italy
+                                        &nbsp; {{ $branch->address }}
                                     </p>
                                     <p class="lead">
                                         <i class="fas fa-phone"></i>
-                                        &nbsp; +39 041 522 6480
+                                        &nbsp; {{ $branch->phone }}
                                     </p>
                                     <p class="lead">
                                         <i class="fas fa-link"></i>
                                         &nbsp;
-                                        <a href="https://www.marriott.com/hotels/travel/vcelc-hotel-danieli-a-luxury-collection-hotel-venice/">
+                                        <a href="{{ $branch->link }}">
                                             Explore our website!
                                         </a>
                                     </p>
@@ -159,114 +153,7 @@
                         </div>
                     </div>
                 </div>
-
-                <!-- China Branch -->
-                <div class="collapse" id="collapseChina">
-                    <div class="card card-body">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-md-12 col-lg-12 col-xs-12 col-sm-12">
-                                    <h2>JW Marriott Hotel Hong Kong, China</h2>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6 col-lg-6 col-sm-6 col-xs-6">
-                                    <iframe src="https://maps.google.com/maps?q=22.2774713,114.16638468&hl=es;z=14&amp;output=embed" width="100%" height="100%" frameborder="0" style="border:0" allowfullscreen></iframe>
-                                </div>
-                                <div class="col-md-6 col-lg-6 col-sm-6 col-xs-6">
-                                    <img src="{{ asset('imgs/China.jpg') }}" class="img-fluid" alt="Venice Marriott Hotel">
-                                    <p class="lead">
-                                        <i class="fas fa-map-marker-alt"></i>
-                                        &nbsp; Pacific Place, 88 Queensway, Hong Kong   Hong Kong SAR, PRC
-                                    </p>
-                                    <p class="lead">
-                                        <i class="fas fa-phone"></i>
-                                        &nbsp; +852 2810 8366
-                                    </p>
-                                    <p class="lead">
-                                        <i class="fas fa-link"></i>
-                                        &nbsp;
-                                        <a href="https://www.marriott.com/hotels/travel/hkgdt-jw-marriott-hotel-hong-kong/">
-                                            Explore our website!
-                                        </a>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Egypt Branch -->
-                <div class="collapse" id="collapseEgypt">
-                    <div class="card card-body">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-md-12 col-lg-12 col-xs-12 col-sm-12">
-                                    <h2>JW Marriott Hotel Cairo, Egypt</h2>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6 col-lg-6 col-sm-6 col-xs-6">
-                                    <iframe src="https://maps.google.com/maps?q=30.0720694,31.43469651&hl=es;z=14&amp;output=embed" width="100%" height="100%" frameborder="0" style="border:0" allowfullscreen></iframe>
-                                </div>
-                                <div class="col-md-6 col-lg-6 col-sm-6 col-xs-6">
-                                    <img src="{{ asset('imgs/Egypt.jpg') }}" class="img-fluid" alt="Venice Marriott Hotel">
-                                    <p class="lead">
-                                        <i class="fas fa-map-marker-alt"></i>
-                                        &nbsp; Ring Road- Mirage City- P.O.Box 427, Heliopolis, Cairo  11757 Egypt
-                                    </p>
-                                    <p class="lead">
-                                        <i class="fas fa-phone"></i>
-                                        &nbsp; +20 2 24115588
-                                    </p>
-                                    <p class="lead">
-                                        <i class="fas fa-link"></i>
-                                        &nbsp;
-                                        <a href="https://www.marriott.com/hotels/local-things-to-do/caijw-jw-marriott-hotel-cairo/">
-                                            Explore our website!
-                                        </a>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Thailand Branch -->
-                <div class="collapse" id="collapseFrance">
-                    <div class="card card-body">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-md-12 col-lg-12 col-xs-12 col-sm-12">
-                                    <h2>Courtyard Paris Roissy Charles De Gaulle Airport Hotel</h2>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6 col-lg-6 col-sm-6 col-xs-6">
-                                    <iframe src="https://maps.google.com/maps?q=49.00665965,2.57076947&hl=es;z=14&amp;output=embed" width="100%" height="100%" frameborder="0" style="border:0" allowfullscreen></iframe>
-                                </div>
-                                <div class="col-md-6 col-lg-6 col-sm-6 col-xs-6">
-                                    <img src="{{ asset('imgs/France.jpg') }}" class="img-fluid" alt="Venice Marriott Hotel">
-                                    <p class="lead">
-                                        <i class="fas fa-map-marker-alt"></i>
-                                        &nbsp; Rue de la Chapelle, Charles de Gaulle Airport, Le Mesnil-Amelot  77990 France
-                                    </p>
-                                    <p class="lead">
-                                        <i class="fas fa-phone"></i>
-                                        &nbsp; +33 1 60 03 63 00
-                                    </p>
-                                    <p class="lead">
-                                        <i class="fas fa-link"></i>
-                                        &nbsp;
-                                        <a href="https://www.marriott.com/hotels/travel/parxa-courtyard-paris-roissy-charles-de-gaulle-airport-hotel/">
-                                            Explore our website!
-                                        </a>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                @endforeach
             </div>
 
             @include('layouts.footer')
