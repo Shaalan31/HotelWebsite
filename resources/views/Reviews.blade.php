@@ -52,6 +52,22 @@
         </div>
     </div>
 
+    <!-- Alert the user if he is blocked -->
+    @if(Auth::user()->blocked == true)
+        <!-- if the user is blocked -->
+        <div class="container flex-center">
+            <div class="row">
+                <div class="alert alert-danger col-md-12 col-lg-12 col-xs-12 col-s-12" role="alert">
+                    <h4 class="alert-heading">Sorry, You are blocked!</h4>
+                    <p>We are very sorry! It seems that you are blocked from our website, you cannot book online neither add your review.</p>
+                    <hr>
+                    <p class="mb-0">Whenever you see this, contact us to solve this issue. Thank you!</p>
+                </div>
+            </div>
+        </div>
+    @endif
+
+    <!-- All reviews -->
     @foreach($allReviews as $review)
         <div class="container">
             <div class="row review">
