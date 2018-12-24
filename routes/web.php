@@ -44,4 +44,7 @@ Route::get('/accommodations', 'AccommodController@getAccomod');
 // Routes for trip advisor
 Route::get('/tripadv/{location}', 'TripAdvController@getTripAdv');
 
+// Admin Tool
+// Routes to Bookings
+Route::get('/admin/bookings', 'AdminController@getBookings');
 

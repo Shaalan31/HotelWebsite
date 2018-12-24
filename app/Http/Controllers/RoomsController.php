@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\DB;
 class RoomsController extends Controller
 {
     /**
-     * Get Reviews
+     * Get Rooms
      * @return mixed
      */
     public function getRooms()
