@@ -42,7 +42,7 @@
                     <h1 class="display-3">Reviews</h1>
                 </div>
                 @auth
-                    @if( Auth::user()->blocked == false)
+                    @if( Auth::user()->blocked == false && Auth::user()->is_admin == false)
                         <div class="col-md-4">
                             <a class="btn btn-primary btn-lg" href="#addReview" role="button">Add a Review &raquo;</a>
                         </div>
@@ -53,6 +53,7 @@
     </div>
 
     <!-- Alert the user if he is blocked -->
+    @auth
     @if(Auth::user()->blocked == true)
         <!-- if the user is blocked -->
         <div class="container flex-center">
@@ -66,6 +67,7 @@
             </div>
         </div>
     @endif
+    @endauth
 
     <!-- All reviews -->
     @foreach($allReviews as $review)
@@ -114,7 +116,7 @@
     @endforeach
 
     @auth
-        @if( Auth::user()->blocked == false)
+        @if( Auth::user()->blocked == false && Auth::user()->is_admin == false)
             <hr>
             <div class="container">
                 <div class="row">

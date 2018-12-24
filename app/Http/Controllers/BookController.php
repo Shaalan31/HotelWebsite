@@ -35,7 +35,7 @@ class BookController extends Controller
     public function book(Request $request)
     {
         // If the user has logged out
-        if(!Auth::check())
+        if(!Auth::check() || Auth::user()->is_admin == true)
             return redirect('/login');
 
         // The request parameters
@@ -99,6 +99,7 @@ class BookController extends Controller
         // Add the booking
         $booking = new Bookings();
         $booking->destination = $hotel->name;
+        $booking->location = $hotel->location;
         $booking->status_description = "Waiting for the admin to accept your booking";
         $booking->user_id = auth()->user()->id;
         $booking->start_date = $start_date;

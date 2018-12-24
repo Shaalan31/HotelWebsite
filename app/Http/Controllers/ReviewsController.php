@@ -24,7 +24,7 @@ class ReviewsController extends Controller
      */
     public function addReview(Request $request)
     {
-        if(!Auth::check())  //if logout
+        if(!Auth::check() || Auth::user()->is_admin == true)  //if logout
             return redirect('/login');
 
         $userReview = $request->userReview;

@@ -15,7 +15,7 @@ class AccommodController extends Controller
     public function getAccomod()
     {
         // If the user has logged out or not auth.
-        if(!Auth::check())
+        if(!Auth::check() || Auth::user()->is_admin == true)
             return redirect('/login');
 
         $bookings = Bookings::where('user_id', auth()->user()->id)->get();
@@ -38,20 +38,20 @@ class AccommodController extends Controller
                 // Update the booking status
                 Bookings::where('id', $booking->id)->update(['status' => 4]);
 
-                array_push($finished, array('destination' => $booking->destination, 'status' => $booking->status,
+                array_push($finished, array('destination' => $booking->destination, 'location' => $booking->location, 'status' => $booking->status,
                     'status_description' => $booking->status_description, 'start_date' => $booking->start_date,
                     'end_date' => $booking->end_date, 'rooms' => $roomsArr));
             }
             elseif($booking->status == 1)
-                array_push($pending, array('destination' => $booking->destination, 'status' => $booking->status,
+                array_push($pending, array('destination' => $booking->destination, 'location' => $booking->location, 'status' => $booking->status,
                             'status_description' => $booking->status_description, 'start_date' => $booking->start_date,
                             'end_date' => $booking->end_date, 'rooms' => $roomsArr));
             elseif ($booking->status == 2)
-                array_push($accepted, array('destination' => $booking->destination, 'status' => $booking->status,
+                array_push($accepted, array('destination' => $booking->destination, 'location' => $booking->location, 'status' => $booking->status,
                     'status_description' => $booking->status_description, 'start_date' => $booking->start_date,
                     'end_date' => $booking->end_date, 'rooms' => $roomsArr));
             elseif($booking->status == 3)
-                array_push($rejected, array('destination' => $booking->destination, 'status' => $booking->status,
+                array_push($rejected, array('destination' => $booking->destination, 'location' => $booking->location, 'status' => $booking->status,
                     'status_description' => $booking->status_description, 'start_date' => $booking->start_date,
                     'end_date' => $booking->end_date, 'rooms' => $roomsArr));
         }

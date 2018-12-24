@@ -12,12 +12,17 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    if(!Auth::check()){
+        return view('welcome');
+    }
+    elseif(Auth::user()->is_admin == 0)
+        return view('welcome');
+    else
+        return view('dashboard');
 });
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
 
 // Routes to reviews page
 Route::get('/reviews', 'ReviewsController@getReviews');
@@ -35,3 +40,8 @@ Route::post('/book', 'BookController@book');
 
 // Routes to accommodations' status
 Route::get('/accommodations', 'AccommodController@getAccomod');
+
+// Routes for trip advisor
+Route::get('/tripadv/{location}', 'TripAdvController@getTripAdv');
+
+

@@ -70,6 +70,8 @@
                                                                     </li>
                                                                 @endforeach
                                                             </ul>
+                                                            <br>
+                                                            <a href="/tripadv/{{ $booking['location'] }}" class="btn btn-primary flex-center">Trip Advisor</a>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -118,6 +120,8 @@
                                                                         </li>
                                                                     @endforeach
                                                                 </ul>
+                                                                <br>
+                                                                <a href="/tripadv/{{ $booking['location'] }}" class="btn btn-success flex-center">Trip Advisor</a>
                                                             </div>
                                                         </div>
                                                     </div>
