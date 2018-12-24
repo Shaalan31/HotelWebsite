@@ -48,3 +48,6 @@ Route::get('/tripadv/{location}', 'TripAdvController@getTripAdv');
 // Routes to Bookings
 Route::get('/admin/bookings', 'AdminController@getBookings');
 
+// Routes to accept or reject the booking
+Route::post('/accept', 'AdminController@acceptBooking');
+Route::post('/reject', 'AdminController@rejectBooking');

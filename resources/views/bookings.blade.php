@@ -37,35 +37,66 @@
                             <tr>
                                 <th scope="col">ID</th>
                                 <th scope="col">Customer</th>
+                                <th scope="col">Phone</th>
                                 <th scope="col">Destination</th>
                                 <th scope="col">Start Date</th>
                                 <th scope="col">End Date</th>
+                                <th scope="col">rooms</th>
                                 <th scope="col">Status</th>
+                                <th scope="col">Edit</th>
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach($allBookings as $booking)
+                            @foreach($bookings as $booking)
                             <tr  scope="row">
-                            <td id="id">{{ $booking->id }}</td>
-                            <td >{{ $booking->user_id }}</td>
-                            <td >{{ $booking->destination }}</td>
-                            <td>{{ $booking->start_date }}</td>
-                            <td>{{ $booking->end_date }}</td>
-                            @if($booking->status == 1)
+                            <td id="id">{{ $booking['booking']->id }}</td>
+                            <td >{{ $booking['user']['user_name']}}</td>
+                            <td >{{ $booking['user']['user_phone']}}</td>
+                            <td >{{ $booking['booking']->destination }}</td>
+                            <td>{{ $booking['booking']->start_date }}</td>
+                            <td>{{ $booking['booking']->end_date }}</td>
+                            <td>
+                                <ul class="list-group">
+                                    @foreach($booking['rooms'] as $room)
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        {{ $room['room'] }}
+                                        <span class="badge badge-primary badge-pill">{{ $room['quantity'] }}</span>
+                                    </li>
+                                    @endforeach
+                                </ul>
+                            </td>
+                            @if($booking['booking']->status == 1)
                             <td>PENDING</td>
-                            @elseif($booking->status == 2)
+                            @elseif($booking['booking']->status == 2)
                             <td>ACCEPTED</td>
-                            @elseif($booking->status == 2)
+                            @elseif($booking['booking']->status == 3)
                             <td>REJECTED</td>
                             @else
                             <td>FINSIHED</td>
                             @endif
 
-                                    {{--<td>--}}
-                                {{--<select name="customerstatus" th:onchange="'changeSelect(' + ${row.id} + ')'" placeholder="Status" type="text" required="required" class="select_customer select_status" th:id="'action' + ${row.id}" >--}}
-                                    {{--<option class="option_customer" th:each="status : ${allStatus}"  th:selected="${row.status.name == status}"  th:text="${status}"></option>--}}
-                                {{--</select>--}}
-                            {{--</td>--}}
+                            <td>
+                                @if($booking['booking']->end_date < today() && $booking['booking']->status != 4)
+                                The date of the booking has passed!
+                                @elseif($booking['booking']->status != 4)
+                                <span>
+                                    <form action="/accept" method="post">
+                                        {{ csrf_field() }}
+                                        <input hidden name="id" value="{{ $booking['booking']->id }}">
+                                        <button class="btn btn-success col-md-8" style="margin-bottom: 15%;"><i class="far fa-check-square"></i></button>
+                                    </form>
+                                </span>
+                                <span>
+                                    <form action="/reject" method="post">
+                                        {{ csrf_field() }}
+                                        <input hidden name="id" value="{{ $booking['booking']->id }}">
+                                        <button class="btn btn-danger col-md-8" style="margin-bottom: 15%;"><i class="far fa-trash-alt"></i></button>
+                                    </form>
+                                </span>
+                                @else
+                                The booking is already finished!
+                                @endif
+                            </td>
                             </tr>
                             @endforeach
                             </tbody>
