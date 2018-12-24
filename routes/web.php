@@ -23,7 +23,9 @@ Route::get('/', function () {
 
 Auth::routes();
 
-
+/**
+ * User Routes
+ */
 // Routes to reviews page
 Route::get('/reviews', 'ReviewsController@getReviews');
 Route::post('/reviews', 'ReviewsController@addReview');
@@ -44,10 +46,14 @@ Route::get('/accommodations', 'AccommodController@getAccomod');
 // Routes for trip advisor
 Route::get('/tripadv/{location}', 'TripAdvController@getTripAdv');
 
-// Admin Tool
+/**
+ * Admin Tool Routes
+ */
 // Routes to Bookings
 Route::get('/admin/bookings', 'AdminController@getBookings');
-
 // Routes to accept or reject the booking
 Route::post('/accept', 'AdminController@acceptBooking');
 Route::post('/reject', 'AdminController@rejectBooking');
+
+// Routes to Rooms
+Route::get('/admin/rooms', 'AdminController@getRooms');

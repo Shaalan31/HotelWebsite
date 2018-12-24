@@ -46,7 +46,7 @@ class AdminController extends Controller
             array_push($bookings, $bookingTemp);
         }
 
-        return \View::make('bookings', compact('bookings'));
+        return \View::make('adminbookings', compact('bookings'));
     }
 
     /**
@@ -73,6 +73,16 @@ class AdminController extends Controller
         Bookings::where('id', $request->id)->update(['status' => 3]);
 
         return redirect('/admin/bookings');
+    }
+
+    public function getRooms(){
+        // if the user is nor logged in or the user is not an admin
+        if(!Auth::check() || Auth::user()->is_admin == false)
+            return redirect('/login');
+
+        $allRooms = Rooms::all();
+
+        return \View::make('adminrooms', compact('allRooms'));
     }
 
 
