@@ -33,7 +33,7 @@ function addRoom() {
             if(chosenRooms[i].name.toLowerCase().trim() == newRoomName.toLowerCase().trim()){
                 if(chosenRooms[i].quantity + quantity <= 10) {
                     chosenRooms[i].quantity += quantity;
-                    document.getElementById('quantity' + i).setAttribute('value', chosenRooms[i].quantity);
+                    document.getElementById('quantity' + chosenRooms[i].name).setAttribute('value', chosenRooms[i].quantity);
                 }
                 found = true;
                 break;
@@ -42,9 +42,10 @@ function addRoom() {
         if(!found){
             rooms.innerHTML = rooms.innerHTML +
                 '<div class="input-group mb-3">' +
-                '<input type="text" name="chosenRooms[]" class="form-control" readonly="readonly" value="'+ newRoomName +'" id="room' + chosenRooms.length +'">' +
+                '<input type="text" name="chosenRooms[]" class="form-control" readonly="readonly" value="'+ newRoomName +'" id="room' + newRoomName.trim().toLowerCase() +'">' +
                 '<div class="input-group-append">' +
-                '<input name="quantities[]" type="number" style="text-align: center;" readonly="readonly" class="form-control" value="'+ quantity +'" id="quantity'+ chosenRooms.length +'">' +
+                '<input name="quantities[]" type="number" style="text-align: center;" readonly="readonly" class="form-control" value="'+ quantity +'" id="quantity'+ newRoomName.trim().toLowerCase() +'">' +
+                '<button class="btn btn-outline-danger" type="button" onclick="deleteRoom(&#39;' + newRoomName + '&#39;, this);">-</button>' +
                 '</div>' +
                 '</div>';
 
@@ -55,11 +56,25 @@ function addRoom() {
 
         rooms.innerHTML = rooms.innerHTML +
             '<div class="input-group mb-3">' +
-            '<input type="text" name="chosenRooms[]" class="form-control"  readonly="readonly" value="'+ newRoomName +'" id="chosenRooms[0]" >' +
+            '<input type="text" name="chosenRooms[]" class="form-control"  readonly="readonly" value="'+ newRoomName +'" id="room' + newRoomName.trim().toLowerCase() +'" >' +
             '<div class="input-group-append">' +
-            '<input name="quantities[]" type="number" style="text-align: center;" readonly="readonly" class="form-control" value="'+ quantity +'" id="quantity0">' +
+            '<input name="quantities[]" type="number" style="text-align: center;" readonly="readonly" class="form-control" value="'+ quantity +'" id="quantity'+ newRoomName.trim().toLowerCase() +'">' +
+            '<button class="btn btn-outline-danger" type="button" onclick="deleteRoom(&#39;'+ newRoomName +'&#39;, this);">-</button>' +
             '</div>' +
             '</div>';
+    }
+}
+
+// Delete Room
+function deleteRoom(newRoomName, e){
+    for(var i = 0; i < chosenRooms.length; i++){
+        if(chosenRooms[i].name.toLowerCase().trim() == newRoomName.toLowerCase().trim()){
+            found = true;
+            //delete from array
+            chosenRooms.splice(i, 1);
+            e.parentNode.parentNode.parentNode.removeChild(e.parentNode.parentNode);
+            break;
+        }
     }
 }
 
