@@ -21,6 +21,7 @@
                 <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
                 @if (Route::has('login'))
                     <nav class="navbar navbar-expand-lg  navbar-expand-md navbar-light fixed-top bg-light navig-bar">
+                        <img class="rounded float-left" src="{{ asset('imgs/logo1.png') }}">
                         <a class="navbar-brand" href="{{ url('/') }}">Marriott Hotel</a>
                         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                             <span class="navbar-toggler-icon"></span>
