@@ -35,7 +35,7 @@ class AdminController extends Controller
                 array_push($roomsArr, array('room' => $roomTemp->name, 'quantity' => $room->no_of_rooms));
             }
 
-            if(($booking->end_date < today() && $booking->status == 2)) {
+            if(($booking->end_date < date_format(today(), "Y-m-d") && $booking->start_date < date_format(today(), "Y-m-d") && $booking->status == 2)) {
                 // Update the booking status
                 Bookings::where('id', $booking->id)->update(['status' => 4]);
                 $booking->status = 4;
@@ -58,7 +58,19 @@ class AdminController extends Controller
         if(!Auth::check() || Auth::user()->is_admin == false)
             return redirect('/login');
 
-        Bookings::where('id', $request->id)->update(['status' => 2]);
+        $booking = Bookings::where('id', $request->id)->first();
+
+        // check if the date of the booking has passed or running, so don't update the booking status
+        $edit = true;
+        if($booking != null){
+            if($booking->start_date < date_format(today(), "Y-m-d") && $booking->end_date < date_format(today(), "Y-m-d"))
+                $edit = false;
+            elseif ($booking->start_date <= date_format(today(), "Y-m-d") && $booking->end_date >= date_format(today(), "Y-m-d"))
+                $edit = false;
+        }
+
+        if($edit)
+            Bookings::where('id', $request->id)->update(['status' => 2, 'status_description' => 'Your booking is accepted.']);
 
         return redirect('/admin/bookings');
     }
@@ -73,7 +85,18 @@ class AdminController extends Controller
         if(!Auth::check() || Auth::user()->is_admin == false)
             return redirect('/login');
 
-        Bookings::where('id', $request->id)->update(['status' => 3]);
+        $booking = Bookings::where('id', $request->id)->first();
+
+        $edit = true;
+        if($booking != null){
+            if($booking->start_date < date_format(today(), "Y-m-d") && $booking->end_date < date_format(today(), "Y-m-d"))
+                $edit = false;
+            elseif ($booking->start_date <= date_format(today(), "Y-m-d") && $booking->end_date >= date_format(today(), "Y-m-d"))
+                $edit = false;
+        }
+
+        if($edit)
+            Bookings::where('id', $request->id)->update(['status' => 3, 'status_description' => 'We are very sorry! Your booking is rejected. Please contact us for more details.']);
 
         return redirect('/admin/bookings');
     }

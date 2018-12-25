@@ -58,7 +58,11 @@
                                                         <div class="card-body">
                                                             <h5 class="card-title"><i class="text-primary fas fa-map-marker-alt"></i> {{ $booking['destination'] }}</h5>
                                                             <p class="card-text lead"><i class="text-primary far fa-clock"></i> PENDING</p>
+                                                            @if($booking['end_date'] < date_format(today(), "Y-m-d") && $booking['start_date'] < date_format(today(), "Y-m-d"))
+                                                            <p class="lead"><i class="text-primary far fa-file-alt"></i> We are very sorry! The date of the booking has passed.</p>
+                                                            @else
                                                             <p class="lead"><i class="text-primary far fa-file-alt"></i> {{ $booking['status_description'] }}</p>
+                                                            @endif
                                                             <p class="lead">Start Date {{ $booking['start_date'] }}</p>
                                                             <p class="lead">End Date {{ $booking['end_date'] }}</p>
                                                             <p class="lead"><i class="text-primary fas fa-bed"></i> Rooms</p>

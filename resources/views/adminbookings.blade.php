@@ -75,7 +75,9 @@
                             <td><span class="badge badge-secondary">FINSIHED</span></td>
                             @endif
                             <td class="text-center">
-                                @if($booking['booking']->end_date < today() && $booking['booking']->status != 4)
+                                @if($booking['booking']->end_date >= date_format(today(), "Y-m-d") && $booking['booking']->start_date <= date_format(today(), "Y-m-d") && $booking['booking']->status == 2)
+                                The booking is active now!
+                                @elseif($booking['booking']->end_date < date_format(today(), "Y-m-d") && $booking['booking']->start_date < date_format(today(), "Y-m-d") && $booking['booking']->status == 1)
                                 The date of the booking has passed!
                                 @elseif($booking['booking']->status != 4)
                                 <span>

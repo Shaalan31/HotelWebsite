@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
-@if($location == 'Egypt')
+@if(strtolower(trim($location)) == 'egypt')
 <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">--}}
     <ol class="carousel-indicators">
         <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
@@ -74,7 +74,7 @@
 <br>
 <br>
 
-@elseif($location == 'China')
+@elseif(strtolower(trim($location)) == 'china')
     <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">--}}
         <ol class="carousel-indicators">
             <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
@@ -133,7 +133,7 @@
     <br>
     <br>
 
-@elseif($location == 'France')
+@elseif(strtolower(trim($location)) == 'france')
     <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">--}}
         <ol class="carousel-indicators">
             <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
@@ -187,7 +187,7 @@
     </div>
 
 
-@elseif($location == 'Italy')
+@elseif(strtolower(trim($location)) == 'italy')
     <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">--}}
         <ol class="carousel-indicators">
             <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
