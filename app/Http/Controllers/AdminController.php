@@ -92,6 +92,11 @@ class AdminController extends Controller
         return \View::make('adminrooms', compact('allRooms'));
     }
 
+    /**
+     * Add a new type of room
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
     public function addRoom(Request $request){
         // if the user is nor logged in or the user is not an admin
         if(!Auth::check() || Auth::user()->is_admin == false)
@@ -140,5 +145,51 @@ class AdminController extends Controller
         $room->save();
 
         return redirect('/admin/rooms');
+    }
+
+
+    /**
+     * View all customers in the system
+     * @return \Illuminate\Contracts\View\View|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function getCustomers(){
+        // if the user is nor logged in or the user is not an admin
+        if(!Auth::check() || Auth::user()->is_admin == false)
+            return redirect('/login');
+
+        $users = User::select('id', 'name', 'address', 'phone', 'email', 'blocked')->where('is_admin', 0)->get();
+
+        return \View::make('admincustomers', compact('users'));
+
+    }
+
+    /**
+     * Block a customer by the admin
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function blockCustomer($id){
+        // if the user is nor logged in or the user is not an admin
+        if(!Auth::check() || Auth::user()->is_admin == false)
+            return redirect('/login');
+
+        User::where('id', $id)->update(['blocked' => true]);
+
+        return redirect('/admin/customers');
+    }
+
+    /**
+     * Unblock a customer by admin
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function unblockCustomer($id){
+        // if the user is nor logged in or the user is not an admin
+        if(!Auth::check() || Auth::user()->is_admin == false)
+            return redirect('/login');
+
+        User::where('id', $id)->update(['blocked' => false]);
+
+        return redirect('/admin/customers');
     }
 }

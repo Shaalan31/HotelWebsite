@@ -66,16 +66,15 @@
                                 </ul>
                             </td>
                             @if($booking['booking']->status == 1)
-                            <td>PENDING</td>
+                            <td><span class="badge badge-info">PENDING</span></td>
                             @elseif($booking['booking']->status == 2)
-                            <td>ACCEPTED</td>
+                            <td><span class="badge badge-success">ACCEPTED</span></td>
                             @elseif($booking['booking']->status == 3)
-                            <td>REJECTED</td>
+                            <td><span class="badge badge-danger">REJECTED</span></td>
                             @else
-                            <td>FINSIHED</td>
+                            <td><span class="badge badge-secondary">FINSIHED</span></td>
                             @endif
-
-                            <td>
+                            <td class="text-center">
                                 @if($booking['booking']->end_date < today() && $booking['booking']->status != 4)
                                 The date of the booking has passed!
                                 @elseif($booking['booking']->status != 4)

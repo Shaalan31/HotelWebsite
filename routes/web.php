@@ -58,3 +58,8 @@ Route::post('/reject', 'AdminController@rejectBooking');
 // Routes to Rooms
 Route::get('/admin/rooms', 'AdminController@getRooms');
 Route::post('/addroom', 'AdminController@addRoom');
+
+// Routes to Customers
+Route::get('/admin/customers', 'AdminController@getCustomers');
+Route::get('/block/{id}', 'AdminController@blockCustomer');
+Route::get('/unblock/{id}', 'AdminController@unblockCustomer');
