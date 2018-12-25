@@ -144,6 +144,8 @@
                                                         <strong>{{ $errors->first('room') }}</strong>
                                                     </span>
                                                 @endif
+
+                                                <p class="lead"><a href="/rooms">Explore Our Rooms</a></p>
                                             </div>
                                         </div>
 

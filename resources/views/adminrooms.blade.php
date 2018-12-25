@@ -165,6 +165,7 @@
                 </div>
             </div>
 
+            <!-- Table Rooms -->
             <div class="container">
                 <div class="row">
                     <div class="col-md-12 col-xs-12 col-s-12 col-lg-12">
@@ -185,10 +186,35 @@
                             <tr  scope="row">
                             <td id="id">{{ $room->id }}</td>
                             <td >{{ $room->name }}</td>
-                            <td >{{ $room->no_of_guests }}</td>
-                            <td >{{ $room->no_of_beds }}</td>
-                            <td>{{ $room->size }} Sq. M</td>
-                            <td>{{ $room->description }}</td>
+                            <td class="text-center">{{ $room->no_of_guests }}</td>
+                            <td class="text-center">{{ $room->no_of_beds }}</td>
+                            <td class="text-center">{{ $room->size }} Sq. M</td>
+                            <td>
+                                <!-- Button trigger for discription -->
+                                <button type="button" class="btn btn-info" data-toggle="modal" data-target=".description{{ $room->id }}">
+                                    Room Description
+                                </button>
+
+                                <!-- Modal -->
+                                <div class="modal fade description{{ $room->id }} bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalCenterTitle">{{ $room->name }} Description</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                {{ $room->description }}
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
                             <td>{{ $room->price }}$ per night</td>
                             </tr>
                             @endforeach
