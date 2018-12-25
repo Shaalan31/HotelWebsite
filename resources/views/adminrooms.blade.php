@@ -27,6 +27,142 @@
                         </blockquote>
                     </div>
                 </div>
+                <div class="row">
+                    <div class="col-md-12 col-lg-12 col-xs-12 col-sm-12">
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-outline-info pull-right" data-toggle="modal" data-target="#exampleModalCenter">
+                            Add Room &raquo;
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <br>
+
+            <!-- Modal -->
+            @if($errors->any())
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12 col-lg-12 col-xs-12 col-sm-12">
+                            <div class="alert alert-danger" role="alert" id="dangeralert">
+                                The room is not added! Check "Add Room" to see the problem.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @endif
+
+            <div class="modal fade bd-example-modal-lg" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalCenterTitle">Add Room</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+
+                        <!-- Add a room form -->
+                        <form class="form-horizontal" method="POST" action="/addroom" name="addRoom">
+                            {{ csrf_field() }}
+                            <div class="modal-body">
+
+                                <!-- Room Name -->
+                                <div class="flex-center form-group{{ $errors->has('name') ? ' has-error' : '' }}">
+                                    <label for="credit_card" class="col-md-3 control-label">Room Name</label>
+
+                                    <div class="col-md-9">
+                                        <input id="name" type="text" placeholder="Room's Name" class="form-control" name="name" value="{{ old('name') }}"
+                                               required
+                                               autofocus
+                                               onkeyup="validateCC()">
+
+                                        @if ($errors->has('name'))
+                                            <span class="help-block">
+                                                    <strong>{{ $errors->first('name') }}</strong>
+                                                </span>
+                                        @endif
+                                    </div>
+                                </div>
+
+                                <!-- Number of Guests, Beds and Size of the room -->
+                                <div class="form-row">
+                                    <div class="col-md-4 form-group{{ $errors->has('no_of_guests') ? ' has-error' : '' }}">
+                                        <label for="no_of_guests">Number Of Guests</label>
+                                        <input name="no_of_guests" type="number" class="form-control text-center" id="no_of_guests" placeholder="Number Of Guests"
+                                               required
+                                               autofocus
+                                               min = 1
+                                               max = 4
+                                               value="{{ old('no_of_guests') }}">
+                                        @if ($errors->has('no_of_guests'))
+                                            <span class="help-block">
+                                                <strong>{{ $errors->first('no_of_guests') }}</strong>
+                                            </span>
+                                        @endif
+                                    </div>
+                                    <div class="col-md-4 form-group{{ $errors->has('no_of_beds') ? ' has-error' : '' }}">
+                                        <label for="no_of_beds">Number Of Beds</label>
+                                        <input name="no_of_beds" type="number" class="form-control text-center" id="no_of_beds" placeholder="Number Of Beds"
+                                               required
+                                               autofocus
+                                               min = 1
+                                               max = 4
+                                               value="{{ old('no_of_beds') }}">
+                                        @if ($errors->has('no_of_beds'))
+                                            <span class="help-block">
+                                                <strong>{{ $errors->first('no_of_beds') }}</strong>
+                                            </span>
+                                        @endif
+                                    </div>
+                                    <div class="col-md-4 form-group{{ $errors->has('size') ? ' has-error' : '' }}">
+                                        <label for="size">Size</label>
+                                        <input name="size" type="number" class="form-control text-center" id="size" placeholder="Size Of The Room"
+                                               required
+                                               autofocus
+                                               min = 1
+                                               value="{{ old('size') }}">
+                                        @if ($errors->has('size'))
+                                            <span class="help-block">
+                                                <strong>{{ $errors->first('size') }}</strong>
+                                            </span>
+                                        @endif
+                                    </div>
+                                </div>
+
+                                <!-- Description of the room -->
+                                <div class="form-group{{ $errors->has('description') ? ' has-error' : '' }}">
+                                    <label for="description">Description</label>
+                                    <textarea name="description" class="form-control" id="description" placeholder="Enter the description of the room" rows="3" required autofocus value="{{ old('description') }}"></textarea>
+                                    @if ($errors->has('description'))
+                                        <span class="help-block">
+                                            <strong>{{ $errors->first('description') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+
+                                <!-- Price -->
+                                <div class="form-group{{ $errors->has('price') ? ' has-error' : '' }}">
+                                    <label for="price">Price</label>
+                                    <input name="price" type="number" class="text-center form-control text-center" id="price" placeholder="Price $ pert night"
+                                           required
+                                           autofocus
+                                           min = 1
+                                           value="{{ old('price') }}">
+                                    @if ($errors->has('price'))
+                                        <span class="help-block">
+                                                <strong>{{ $errors->first('price') }}</strong>
+                                            </span>
+                                    @endif
+                                </div>
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary">Add</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
 
             <div class="container">

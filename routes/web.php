@@ -57,3 +57,4 @@ Route::post('/reject', 'AdminController@rejectBooking');
 
 // Routes to Rooms
 Route::get('/admin/rooms', 'AdminController@getRooms');
+Route::post('/addroom', 'AdminController@addRoom');

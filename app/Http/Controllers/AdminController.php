@@ -5,7 +5,6 @@ use App\Rooms;
 use App\RoomsBooking;
 use App\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Auth;
 
@@ -50,7 +49,9 @@ class AdminController extends Controller
     }
 
     /**
-     * Accept a booking with id
+     * Accept Booking
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function acceptBooking(Request $request){
         // if the user is nor logged in or the user is not an admin
@@ -63,7 +64,9 @@ class AdminController extends Controller
     }
 
     /**
-     * Reject a booking with id
+     * Reject Booking
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function rejectBooking(Request $request){
         // if the user is nor logged in or the user is not an admin
@@ -75,6 +78,10 @@ class AdminController extends Controller
         return redirect('/admin/bookings');
     }
 
+    /**
+     * Get rooms in Admin Tool
+     * @return \Illuminate\Contracts\View\View|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
     public function getRooms(){
         // if the user is nor logged in or the user is not an admin
         if(!Auth::check() || Auth::user()->is_admin == false)
@@ -85,5 +92,53 @@ class AdminController extends Controller
         return \View::make('adminrooms', compact('allRooms'));
     }
 
+    public function addRoom(Request $request){
+        // if the user is nor logged in or the user is not an admin
+        if(!Auth::check() || Auth::user()->is_admin == false)
+            return redirect('/login');
 
+        // Validation of inputs
+        $name = $request->name;
+        $no_of_guests = $request->no_of_guests;
+        $no_of_beds = $request->no_of_beds;
+        $size = $request->size;
+        $description = $request->description;
+        $price = $request->price;
+
+        // Validate the request
+        $data['name'] = $name;
+        $data['no_of_guests'] = $no_of_guests;
+        $data['no_of_beds'] = $no_of_beds;
+        $data['size'] = $size;
+        $data['description'] = $description;
+        $data['price'] = $price;
+
+
+        $v = Validator::make($data , [
+            'name' => 'required|string|max:255',
+            'no_of_guests' => 'required|numeric|min:1|max:4',
+            'no_of_beds' => 'required|numeric|min:1|max:4',
+            'size' => 'required|numeric',
+            'description' => 'required|string|max:1000',
+            'price' => 'required|numeric',
+        ]);
+
+        if($v->fails()){
+            return redirect()->back()->withErrors($v->errors());
+        }
+
+        // Add the room in the database
+        $room = new Rooms();
+
+        $room->name = $name;
+        $room->no_of_guests = $no_of_guests;
+        $room->no_of_beds = $no_of_beds;
+        $room->size = $size;
+        $room->description = $description;
+        $room->price = $price;
+
+        $room->save();
+
+        return redirect('/admin/rooms');
+    }
 }
