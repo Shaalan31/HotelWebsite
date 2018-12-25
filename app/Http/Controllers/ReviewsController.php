@@ -1,5 +1,6 @@
 <?php
 namespace App\Http\Controllers;
+use App\Reviews;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
@@ -13,7 +14,7 @@ class ReviewsController extends Controller
      */
     public function getReviews()
     {
-        $allReviews = DB::table('reviews')->get();
+        $allReviews = Reviews::all();
         return \View::make('reviews', compact('allReviews'));
     }
 
@@ -43,9 +44,12 @@ class ReviewsController extends Controller
         }
 
         // Insert in the database
-        DB::table('reviews')->insert(
-            [ ['name' => @auth()->user()->name, 'review' => $userReview, 'rating' => $userRating ]]
-        );
+        $review = new Reviews();
+        $review->name = auth()->user()->name;
+        $review->review = $userReview;
+        $review->rating = $userRating;
+        $review->save();
+
         return redirect('/reviews');
     }
 }

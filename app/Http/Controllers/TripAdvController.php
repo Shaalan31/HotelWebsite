@@ -15,7 +15,7 @@ class TripAdvController extends Controller
     public function getTripAdv($location)
     {
         // If the user has logged out or not auth.
-        if(!Auth::check() || Auth::user()->is_admin == 1)
+        if(!Auth::check() || Auth::user()->is_admin == true)
             return redirect('/login');
 
         return \View::make('tripadv', compact('location'));

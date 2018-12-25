@@ -1,6 +1,6 @@
 <?php
 namespace App\Http\Controllers;
-use Illuminate\Support\Facades\DB;
+use App\Rooms;
 
 class RoomsController extends Controller
 {
@@ -10,7 +10,7 @@ class RoomsController extends Controller
      */
     public function getRooms()
     {
-        $allRooms = DB::table('rooms')->get();
+        $allRooms = Rooms::all();
         return \View::make('rooms', compact('allRooms'));
     }
 

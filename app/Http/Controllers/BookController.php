@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Validator;
 use Auth;
 use App\Bookings;
-use App\User;
 
 class BookController extends Controller
 {
