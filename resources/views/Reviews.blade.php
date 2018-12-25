@@ -9,7 +9,6 @@
     <title>Reviews - Marriott Hotel</title>
     <!-- Bootstrap core CSS -->
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
-
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -19,38 +18,80 @@
         .checked {
             color: orange;
         }
-        .review {
-            border-radius: 10px;
-            border: 1px solid silver;
-            /*padding: 10px;*/
-            margin: 10px;
-            /*width: 1000px;*/
-            /*height: 110px;*/
-            width: 100%;
-            height: 100%;
-            background-color: #f0f5f5;
 
-        }
 
     </style>
 </head>
 <body>
-    <div class="jumbotron">
+    <div class="jumbotron backgroundReview">
         <div class="container">
             <div class="row">
                 <div class="col-md-8">
-                    <h1 class="display-3">Reviews</h1>
+                    <h1 class="display-3" style="color: white">Reviews</h1>
                 </div>
                 @auth
-                    @if( Auth::user()->blocked == false && Auth::user()->is_admin == false)
-                        <div class="col-md-4">
-                            <a class="btn btn-primary btn-lg" href="#addReview" role="button">Add a Review &raquo;</a>
-                        </div>
-                    @endif
+                @if( Auth::user()->blocked == false && Auth::user()->is_admin == false)
+                <div class="col-md-4">
+                    <a class="btn btn-info btn-lg pull-right" role="button" data-toggle="modal" data-target= ".addReview" style="color: white;">Add a Review</a>
+                </div>
+                @endif
                 @endauth
             </div>
         </div>
     </div>
+    @auth
+    @if( Auth::user()->blocked == false && Auth::user()->is_admin == false)
+    <!-- Modal -->
+    <div class="modal fade addReview bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalCenterTitle"> Add a Review</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form class="form-horizontal" method="POST" action="/reviews" >
+                    <div class="modal-body">
+                            {{ csrf_field() }}
+
+                            <!-- User Review -->
+                            <div class="form-group{{ $errors->has('userReview') ? ' has-error' : '' }}">
+                                <label for="userReview">Write Your Review</label>
+                                <textarea name="userReview" class="form-control" id="userReview" placeholder="Enter Your Review" rows="3" required autofocus value="{{ old('userReview') }}"></textarea>
+                                @if ($errors->has('userReview'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('userReview') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+
+                            <div class="form-group{{ $errors->has('userRating') ? ' has-error' : '' }}">
+                                <label for="userRating">Give Your Rating Please</label>
+                                <div class="radio" name="userRating" style="margin-left: 1%">
+                                    <label><input type="radio" style="height:20px; width:20px;" name="userRating" value="1"> <p style="font-size: medium">1 </p></label>
+                                    <label><input type="radio" style="height:20px; width:20px;" name="userRating" value="2"> <p style="font-size: medium"> 2 </p></label>
+                                    <label><input type="radio" style="height:20px; width:20px;" name="userRating" value="3" checked> <p style="font-size: medium"> 3 </p> </label>
+                                    <label><input type="radio" style="height:20px; width:20px;" name="userRating" value="4"><p style="font-size: medium"> 4 </p></label>
+                                    <label><input type="radio" style="height:20px; width:20px;" name="userRating" value="5"><p style="font-size: medium"> 5 (highest) </p></label>
+                                </div>
+                                @if ($errors->has('userRating'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('userRating') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-lg" style="margin-left: 1%">Submit</button>
+                    </div>
+                </form>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    @endif
+    @endauth
 
     <!-- Alert the user if he is blocked -->
     @auth
@@ -70,92 +111,98 @@
     @endauth
 
     <!-- All reviews -->
+    <div class="container">
+        <div class="row ">
     @foreach($allReviews as $review)
-        <div class="container">
-            <div class="row review">
-                <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
-                    <p style="font-size: large;font-weight: bold"><span> {{$review->name}} </span>
-                        @if($review->rating == 1)
-                            <span class="fa fa-star checked "></span>
-                            <span class="fa fa-star "></span>
-                            <span class="fa fa-star "></span>
-                            <span class="fa fa-star"></span>
-                            <span class="fa fa-star"></span>
-                        @elseif($review->rating == 2)
-                            <span class="fa fa-star checked "></span>
-                            <span class="fa fa-star checked "></span>
-                            <span class="fa fa-star "></span>
-                            <span class="fa fa-star"></span>
-                            <span class="fa fa-star"></span>
-                        @elseif($review->rating == 3)
-                            <span class="fa fa-star checked "></span>
-                            <span class="fa fa-star checked "></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star"></span>
-                            <span class="fa fa-star"></span>
-                        @elseif($review->rating == 4)
-                            <span class="fa fa-star checked "></span>
-                            <span class="fa fa-star checked "></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star"></span>
-                        @else
-                            <span class="fa fa-star checked "></span>
-                            <span class="fa fa-star checked "></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                        @endif
+                <div class="col-md-6 ">
+                    <div class="card" style="width: 100%; background-color: rgba(62,183,171,0.4); ">
+                        <div class="row  align-self-center">
+                            <div class="col-md-6">
+                        <img class="rounded-circle" src="{{ asset('imgs/quotes.png') }}" >
+                        </div>
+                        </div>
+                        <div class="card-body">
+                        <h5 class="card-title" ><span> {{$review->name}} </span>
+                            @if($review->rating == 1)
+                                <span class="fa fa-star checked "></span>
+                                <span class="fa fa-star "></span>
+                                <span class="fa fa-star "></span>
+                                <span class="fa fa-star"></span>
+                                <span class="fa fa-star"></span>
+                            @elseif($review->rating == 2)
+                                <span class="fa fa-star checked "></span>
+                                <span class="fa fa-star checked "></span>
+                                <span class="fa fa-star "></span>
+                                <span class="fa fa-star"></span>
+                                <span class="fa fa-star"></span>
+                            @elseif($review->rating == 3)
+                                <span class="fa fa-star checked "></span>
+                                <span class="fa fa-star checked "></span>
+                                <span class="fa fa-star checked"></span>
+                                <span class="fa fa-star"></span>
+                                <span class="fa fa-star"></span>
+                            @elseif($review->rating == 4)
+                                <span class="fa fa-star checked "></span>
+                                <span class="fa fa-star checked "></span>
+                                <span class="fa fa-star checked"></span>
+                                <span class="fa fa-star checked"></span>
+                                <span class="fa fa-star"></span>
+                            @else
+                                <span class="fa fa-star checked "></span>
+                                <span class="fa fa-star checked "></span>
+                                <span class="fa fa-star checked"></span>
+                                <span class="fa fa-star checked"></span>
+                                <span class="fa fa-star checked"></span>
+                            @endif
 
-                    </p>
-                    <p>{{$review->review}} </p>
-                    </br> </br> </br>
+                    </h5>
+                    <p class="card-text">{{$review->review}} </p>
                 </div>
+                    </div>
+                    </br> </br>
+                </div>
+
+            @endforeach
             </div>
         </div>
-    @endforeach
-
-    @auth
-        @if( Auth::user()->blocked == false && Auth::user()->is_admin == false)
-            <hr>
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
-                        <form method="POST" action="/reviews" >
-                            {{ csrf_field() }}
-                            <div>
-                               <a name="addReview"> <h4 style="margin-left: 1%"> Write a Review</h4> </a>
-                            </div>
-                            <div class="{{ $errors->has('userReview') ? ' has-error' : '' }}">
-                                <textarea name="userReview" class=""  placeholder="Your Review" style="min-height: 140px; width: 50%;margin-left: 1%"></textarea>
-                                <br>
-                                @if ($errors->has('userReview'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('userReview') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-
-                            <div>
-                                <h4 style="margin-left: 1%">Give Your Rating Please</h4>
-                            </div>
-
-                            <div class="radio" style="margin-left: 1%">
-                                <label><input type="radio" style="height:20px; width:20px;" name="userRating" value="1"> <p style="font-size: medium">1 </p></label>
-                                <label><input type="radio" style="height:20px; width:20px;" name="userRating" value="2"> <p style="font-size: medium"> 2 </p></label>
-                                <label><input type="radio" style="height:20px; width:20px;" name="userRating" value="3" checked> <p style="font-size: medium"> 3 </p> </label>
-                                <label><input type="radio" style="height:20px; width:20px;" name="userRating" value="4"><p style="font-size: medium"> 4 </p></label>
-                                <label><input type="radio" style="height:20px; width:20px;" name="userRating" value="5"><p style="font-size: medium"> 5 (highest) </p></label>
-                            </div>
 
 
-                            <button type="submit" class="btn btn-primary btn-lg" style="margin-left: 1%">Submit</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        @endif
-    @endauth
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     <!-- Footer -->
     @include('layouts.footer')
