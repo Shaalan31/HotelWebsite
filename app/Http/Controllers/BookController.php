@@ -19,7 +19,7 @@ class BookController extends Controller
     public function getBooking()
     {
         // If the user has logged out
-        if(!Auth::check())
+        if(!Auth::check() || Auth::user()->is_admin == true)
             return redirect('/login');
 
         $allRooms = DB::table('rooms')->select('name', 'id', 'no_of_guests', 'no_of_beds')->get();
