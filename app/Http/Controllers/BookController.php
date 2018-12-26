@@ -112,6 +112,7 @@ class BookController extends Controller
             $bookingId = 1;
         else $bookingId = $bookingTemp->id + 1;
 
+        // Validate rooms and their quantities
         $i = 0;
         foreach($chosenRooms as $chosenRoom){
             $roomsBooking = new RoomsBooking();

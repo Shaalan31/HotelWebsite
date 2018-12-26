@@ -101,11 +101,11 @@
                                             <div class="row">
                                                 @foreach($allBookings['accepted'] as $booking)
                                                     @if(sizeof($allBookings['accepted']) % 3 == 0)
-                                                        <div class="col-md-4">
+                                                    <div class="col-md-4">
                                                     @elseif(sizeof($allBookings['accepted']) % 2 == 0)
-                                                       <div class="col-md-6">
+                                                    <div class="col-md-6">
                                                     @else
-                                                        <div class="col-md-12">
+                                                    <div class="col-md-12">
                                                     @endif
                                                         <div class="card border-success mb-3" style="max-width: 18rem;">
                                                             <div class="card-header">Booking {{ $loop->iteration }}</div>
