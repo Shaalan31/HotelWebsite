@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers;
 use App\Branches;
+use Auth;
 
 class AboutUsController extends Controller
 {
@@ -10,6 +11,11 @@ class AboutUsController extends Controller
      */
     public function getInfo()
     {
+        // if the user is authenticated ana he is an admin then forbid him
+        if(Auth::check() && Auth::user()->is_admin == true){
+            return redirect('/');
+        }
+
         $branches = Branches::all();
         return \View::make('aboutus', compact('branches'));
     }

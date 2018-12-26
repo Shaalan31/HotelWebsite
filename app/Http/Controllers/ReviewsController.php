@@ -2,7 +2,6 @@
 namespace App\Http\Controllers;
 use App\Reviews;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Auth;
 
@@ -14,6 +13,10 @@ class ReviewsController extends Controller
      */
     public function getReviews()
     {
+        // if the user is authenticated ana he is an admin then forbid him
+        if(Auth::check() && Auth::user()->is_admin == true){
+            return redirect('/');
+        }
         $allReviews = Reviews::all();
         return \View::make('reviews', compact('allReviews'));
     }
