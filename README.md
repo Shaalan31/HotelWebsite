@@ -17,7 +17,7 @@ Some screenshots from the website:
     
     ![Login][login] 
     
-    *Book Page*
+    *Book Now Page*
         
     ![Book][book] 
     
@@ -81,4 +81,4 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 [bookingsAdmin]: https://github.com/Shaalan31/HotelWebsite/blob/master/readme_images/BookingsAdmin.JPG "Bookings Page"
 [customersAdmin]: https://github.com/Shaalan31/HotelWebsite/blob/master/readme_images/CustomersAdmin.JPG "Customers Page"
 [roomsAdmin]: https://github.com/Shaalan31/HotelWebsite/blob/master/readme_images/RoomsAdmin.JPG "Rooms Page"
-[book]: https://github.com/Shaalan31/HotelWebsite/blob/master/readme_images/book.JPG "Book Page"
+[book]: https://github.com/Shaalan31/HotelWebsite/blob/master/readme_images/book.JPG "Book Now Page"
