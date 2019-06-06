@@ -42,7 +42,7 @@ Some screenshots from the website:
 ## Technologies
 This project is implemented using:
 * Laravel Framework 
-* bootstrap
+* Bootstrap
 * Html5
 * CSS 
 * JavaScript
@@ -52,7 +52,7 @@ This project is implemented using:
     ```
     $ git clone https://github.com/Shaalan31/HotelWebsite
     ```
-* Create a database on PhpMyAdmin named YS_Hotel
+* Import database, run [hotel.sql](https://github.com/Shaalan31/HotelWebsite/blob/master/hotel.sql) on PhpMyAdmin.
 * Cd in your project
     ```
     $ cd HotelWebsite
