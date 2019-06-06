@@ -8,44 +8,44 @@ In addition, the admin can login/logout, view bookings from customers, accept or
 ## Screenshots
 Some screenshots from the website:
 * Customers Interface
-    
-    ![Home][home] 
 
     *Home Page*
     
+    ![Home][home] 
+
+    *Login Page*
+    
     ![Login][login] 
     
-    *Login Page*    
-    
-    ![Book][book] 
-    
     *Book Page*
+        
+    ![Book][book] 
     
 * Admin Interface
     
+    *Admin Home Page*
+    
     ![Admin][admin] 
 
-    *Admin Home Page*
+    *Bookings Page*
     
     ![BookingsAdmin][bookingsAdmin]
     
-    *Bookings Page*
+    *Customers Page*
     
     ![CustomersAdmin][customersAdmin]
     
-    *Customers Page*    
-    
-    ![RoomsAdmin][roomsAdmin]
-    
     *Rooms Page*
+      
+    ![RoomsAdmin][roomsAdmin]
 
 ## Technologies
 This project is implemented using:
-    * Laravel Framework 
-    * bootstrap
-    * Html5
-    * CSS 
-    * JavaScript
+* Laravel Framework 
+* bootstrap
+* Html5
+* CSS 
+* JavaScript
   
 ## Getting Started
 * Clone the repo
