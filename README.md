@@ -52,7 +52,9 @@ This project is implemented using:
     ```
     $ git clone https://github.com/Shaalan31/HotelWebsite
     ```
+* Create database locally on PhpMyAdmin named ys_hotel.
 * Import database, run [hotel.sql](https://github.com/Shaalan31/HotelWebsite/blob/master/hotel.sql) on PhpMyAdmin.
+* Rename .env.example file to .env inside your project root and fill the database and mail information.
 * Cd in your project
     ```
     $ cd HotelWebsite
