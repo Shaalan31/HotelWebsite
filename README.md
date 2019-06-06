@@ -41,7 +41,7 @@ Some screenshots from the website:
 
 ## Technologies
 This project is implemented using:
-* Laravel Framework 
+* PHP Laravel Framework 
 * Bootstrap
 * Html5
 * CSS 
@@ -59,6 +59,10 @@ This project is implemented using:
     ```
     $ cd HotelWebsite
     ```
+* Run Command
+	```
+	$ yarn install
+	```
 * Run Command
     ```
     $ php artisan serve 
